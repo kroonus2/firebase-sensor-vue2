@@ -61,6 +61,9 @@ export default {
 			this.config.modal = true;
 		},
 	},
+	created() {
+		document.title = 'Projeto "Terra Moiada" ';
+	},
 };
 </script>
 

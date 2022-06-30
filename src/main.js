@@ -3,7 +3,6 @@ import App from './App.vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 
 import 'bootstrap-vue/dist/bootstrap-vue.css';
-
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
