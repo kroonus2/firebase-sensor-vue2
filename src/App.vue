@@ -43,13 +43,12 @@ export default {
 
 .header {
 	background-color: #386641;
-	padding: 60px;
-	margin-bottom: 60px;
+	padding: 50px;
 }
 
 .title-page {
 	color: white;
-	font-size: 3.5rem;
+	font-size: 4rem;
 	text-align: left;
 	font-family: 'Rajdhani', sans-serif;
 }
