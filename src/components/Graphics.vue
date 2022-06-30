@@ -73,7 +73,7 @@ export default {
 				datasets: [
 					{
 						label: this.labelGraphics,
-						backgroundColor: '#f87979',
+						backgroundColor: '#386641',
 						data: this.chartValues,
 					},
 				],
