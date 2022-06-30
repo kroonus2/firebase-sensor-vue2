@@ -25,31 +25,28 @@
 			<graphics :chartValues="soilMoistureValues" :labelGraphics="graphicTitle" v-if="modalType === 'soilMoisture'" />
 			<graphics :chartValues="temperatureValues" :labelGraphics="graphicTitle" v-if="modalType === 'temperature'" />
 		</b-modal>
+
 		<div>
 			<table v-show="false" border="1" ref="exportable_temperature_table">
 				<tbody>
-					<tr>
-						<td v-for="(item, index) in allTemperature" :key="index">
-							{{ Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'medium' }).format(item.date) }}
+					<tr v-for="(item, index) in allTemperature" :key="index">
+						<td>
+							{{ item.date ? Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'medium' }).format(item.date) : 'Data e Hora' }}
 						</td>
-					</tr>
-					<tr>
-						<td v-for="(item, index) in allTemperature" :key="index + 'data'">
-							{{ item.temperature }}
+						<td>
+							{{ item.temperature ? item.temperature : ' Temperatura ' }}
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<table v-show="false" border="1" ref="exportable_soil_moistures_table">
 				<tbody>
-					<tr>
-						<td v-for="(item, index) in allSoilMoistures" :key="index">
-							{{ Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'medium' }).format(item.date) }}
+					<tr v-for="(item, index) in allSoilMoistures" :key="index">
+						<td>
+							{{ item.date ? Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'medium' }).format(item.date) : 'Data e Hora' }}
 						</td>
-					</tr>
-					<tr>
-						<td v-for="(item, index) in allSoilMoistures" :key="index + 'data'">
-							{{ item.soilMoisture }}
+						<td>
+							{{ item.soilMoisture ? item.soilMoisture : ' Umidade do solo ' }}
 						</td>
 					</tr>
 				</tbody>
@@ -71,8 +68,8 @@ export default {
 		return {
 			temperatures: [[], [], [], [], [], [], []],
 			soilMoistures: [[], [], [], [], [], [], []],
-			allSoilMoistures: [],
-			allTemperature: [],
+			allSoilMoistures: [{ date: false, soilMoisture: false }],
+			allTemperature: [{ date: false, temperature: false }],
 			modalType: false,
 		};
 	},
@@ -128,7 +125,7 @@ export default {
 	methods: {
 		downloadReport(fn, dl) {
 			let referenceType = this.modalType === 'temperature' ? this.$refs.exportable_temperature_table : this.$refs.exportable_soil_moistures_table;
-			let workBook = XLSX.utils.table_to_book(referenceType, { sheet: 'Sheet JS' });
+			let workBook = XLSX.utils.table_to_book(referenceType, { sheet: this.graphicTitle });
 
 			return dl ? XLSX.write(workBook, { bookType: 'xlsx', bookSST: true, type: 'base64' }) : XLSX.writeFile(workBook, fn || this.graphicTitle + '.xlsx');
 		},
