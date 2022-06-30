@@ -49,7 +49,7 @@ export default {
 
 .title-page {
 	color: white;
-	font-size: 4rem;
+	font-size: 3.5rem;
 	text-align: left;
 	font-family: 'Rajdhani', sans-serif;
 }
