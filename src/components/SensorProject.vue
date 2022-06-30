@@ -1,7 +1,7 @@
 <template>
 	<b-card-group deck style="margin: 10%">
 		<br />
-		<b-card title="Última Temperatura" bg-variant="primary" text-variant="white">
+		<b-card title="Última Temperatura" class="shadow-lg" bg-variant="primary" text-variant="white">
 			<b-card-text>
 				<h4>{{ lastTemperature }} °C</h4>
 			</b-card-text>
@@ -12,7 +12,7 @@
 		</b-card>
 
 		<br />
-		<b-card title="Última Umidade do Solo" bg-variant="primary" text-variant="white">
+		<b-card title="Última Umidade do Solo" class="shadow-lg" bg-variant="primary" text-variant="white">
 			<b-card-text>
 				<h4>{{ lastSoilMoisture }}%</h4>
 			</b-card-text>
