@@ -35,6 +35,8 @@ export default {
             controlStatus: false,
             controlSlide: 0,
             lastSoilMoisture: 0,
+            isClicked: false,
+
         }
     },
 
@@ -68,6 +70,7 @@ export default {
 
         plusSlideControl() {
             if (this.controlSlide >= 100) return;
+            this.isClicked = true;
             FirebaseServices.getValueSlideControl().set(this.controlSlide += 1);
         },
 
@@ -81,6 +84,13 @@ export default {
         },
 
         updateLastSoilMoisture(lastSoilMoisture) {
+            if (this.isClicked) {
+                if (this.lastSoilMoisture == this.slideControl) {
+                    this.isClicked = false;
+                } else {
+                    return;
+                }
+            }
             this.lastSoilMoisture = parseInt(lastSoilMoisture);
             this.controlSlide = parseInt(lastSoilMoisture);
             FirebaseServices.getValueSlideControl().set(parseInt(lastSoilMoisture));
