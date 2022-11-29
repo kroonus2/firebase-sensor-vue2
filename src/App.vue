@@ -2,14 +2,15 @@
 	<div id="app">
 		<header class="header">
 			<div class="justify-content-center">
-				<b class="title-page"> PROJETO "TERRA MOIADA" - 2022/01</b>
+				<b class="title-page"> PROJETO "TERRA MOIADA"</b>
 			</div>
 			<b-button variant="outline-warning" @click="openInstruction">Manual de Instruções</b-button>
 		</header>
-		<SensorProject class="sensor-project" />
-		<BombControlVue />
+		<SensorProject class="sensor-project" @lastSoilMoisture="receiveSoilMoisture" />
+		<BombControlVue ref="BombControl" />
 		<footer>
-			<p class="text-white">Projeto desenvolvido por: Matheus, Rafael, Thiago</p>
+			<p class="text-white">Projeto desenvolvido por: Matheus, Rafael, Tiago</p>
+			<small class="text-white">Menção Honrosa - Fábio Torres</small>
 		</footer>
 		<b-modal title="Manual de instruções" size="xl" v-model="config.modal" hide-footer>
 			<h5><b> Montagem do protótipo: </b></h5>
@@ -67,6 +68,11 @@ export default {
 		openInstruction() {
 			this.config.modal = true;
 		},
+
+		receiveSoilMoisture(lastSoilMoisture) {
+			this.$refs.BombControl.updateLastSoilMoisture(lastSoilMoisture);
+		},
+
 	},
 	created() {
 		document.title = 'Projeto "Terra Moiada" ';
@@ -91,7 +97,7 @@ export default {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	overflow: hidden;
+	overflow: scroll;
 	z-index: -1;
 }
 
@@ -112,5 +118,15 @@ export default {
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
+}
+
+@media screen and (max-width: 992px) {
+	#app {
+		background-color: #34b1eb;
+	}
+
+	.header {
+		background-color: #115473;
+	}
 }
 </style>

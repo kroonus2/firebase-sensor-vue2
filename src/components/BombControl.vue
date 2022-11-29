@@ -34,6 +34,7 @@ export default {
         return {
             controlStatus: false,
             controlSlide: 0,
+            lastSoilMoisture: 0,
         }
     },
 
@@ -45,11 +46,6 @@ export default {
         lastSlide() {
             return this.controlSlide;
         },
-
-        lastNotStatus() {
-            return this.uBombControl;
-        },
-
     },
     methods: {
         getSelectedDataBombControl() {
@@ -71,19 +67,30 @@ export default {
         },
 
         plusSlideControl() {
-            if (this.controlSlide >= 100) return
+            if (this.controlSlide >= 100) return;
             FirebaseServices.getValueSlideControl().set(this.controlSlide += 1);
         },
 
         lessSlideControl() {
-            FirebaseServices.getValueSlideControl().set(this.controlSlide -= 1);
-        }
+            if (this.controlSlide <= this.lastSoilMoisture) {
+                this.controlSlide = this.lastSoilMoisture;
+                return;
+            }
 
+            FirebaseServices.getValueSlideControl().set(this.controlSlide -= 1);
+        },
+
+        updateLastSoilMoisture(lastSoilMoisture) {
+            this.lastSoilMoisture = parseInt(lastSoilMoisture);
+            this.controlSlide = parseInt(lastSoilMoisture);
+            FirebaseServices.getValueSlideControl().set(parseInt(lastSoilMoisture));
+        }
     },
 
     created() {
         this.getSelectedDataBombControl();
-        this.getSelectedDataSlideControl();
+        // this.getSelectedDataSlideControl();
     },
 }
 </script>
+

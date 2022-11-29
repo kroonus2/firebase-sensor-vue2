@@ -7,7 +7,7 @@
 			</b-card-text>
 			<br />
 			<b-card-footer footer-bg-variant="primary">
-				<b-button variant="warning" @click="showGraphics('temperature')">Mostrar Grafico</b-button>
+				<b-button variant="success" @click="showGraphics('temperature')">Mostrar Grafico</b-button>
 			</b-card-footer>
 		</b-card>
 
@@ -18,12 +18,17 @@
 			</b-card-text>
 			<br />
 			<b-card-footer footer-bg-variant="primary">
-				<b-button variant="warning" @click="showGraphics('soilMoisture')">Mostrar Grafico</b-button>
+				<b-button variant="success" @click="showGraphics('soilMoisture')">Mostrar
+					Grafico
+				</b-button>
 			</b-card-footer>
 		</b-card>
-		<b-modal id="graphics" size="lg" cancelTitle="Sair" okTitle="Baixar Relatorio" @ok="downloadReport()" :title="graphicTitle">
-			<graphics :chartValues="soilMoistureValues" :labelGraphics="graphicTitle" v-if="modalType === 'soilMoisture'" />
-			<graphics :chartValues="temperatureValues" :labelGraphics="graphicTitle" v-if="modalType === 'temperature'" />
+		<b-modal id="graphics" size="lg" cancelTitle="Sair" okTitle="Baixar Relatorio" @ok="downloadReport()"
+			:title="graphicTitle">
+			<graphics :chartValues="soilMoistureValues" :labelGraphics="graphicTitle"
+				v-if="modalType === 'soilMoisture'" />
+			<graphics :chartValues="temperatureValues" :labelGraphics="graphicTitle"
+				v-if="modalType === 'temperature'" />
 		</b-modal>
 
 		<div>
@@ -31,7 +36,10 @@
 				<tbody>
 					<tr v-for="(item, index) in allTemperature" :key="index">
 						<td>
-							{{ item.date ? Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'medium' }).format(item.date) : 'Data e Hora' }}
+							{{ item.date ? Intl.DateTimeFormat('pt-BR', {
+									dateStyle: 'short', timeStyle: 'medium'
+								}).format(item.date) : 'Data e Hora'
+							}}
 						</td>
 						<td>
 							{{ item.temperature ? item.temperature : ' Temperatura ' }}
@@ -43,7 +51,10 @@
 				<tbody>
 					<tr v-for="(item, index) in allSoilMoistures" :key="index">
 						<td>
-							{{ item.date ? Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'medium' }).format(item.date) : 'Data e Hora' }}
+							{{ item.date ? Intl.DateTimeFormat('pt-BR', {
+									dateStyle: 'short', timeStyle: 'medium'
+								}).format(item.date) : 'Data e Hora'
+							}}
 						</td>
 						<td>
 							{{ item.soilMoisture ? item.soilMoisture : ' Umidade do solo ' }}
@@ -91,6 +102,8 @@ export default {
 			if (this.soilMoistures[dayWeek].length === 0) {
 				return 0;
 			}
+
+			this.$emit("lastSoilMoisture", this.soilMoistures[dayWeek][this.soilMoistures[dayWeek].length - 1]['soilMoisture']);
 
 			return this.soilMoistures[dayWeek][this.soilMoistures[dayWeek].length - 1]['soilMoisture'];
 		},
